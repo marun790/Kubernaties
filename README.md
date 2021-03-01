@@ -29,3 +29,4 @@ Taint on node , Tolerration on pod (key and value) EX: chosing pod for bigdata a
 
 
 REF: https://medium.com/analytics-vidhya/the-kubernetes-control-plane-f4bf460c848f
+
