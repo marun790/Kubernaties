@@ -1,8 +1,8 @@
 # Kubernaties
 kubernaties
 
-![virtualization vs containarization](https://github.com/marun790/docker/blob/main/images/container_evolution.svg?raw=true)
-![virtualization vs containarization](https://github.com/marun790/docker/blob/main/images/container_evolution.svg?raw=true)
+![kubernetes-model-architecture](https://github.com/marun790/Kubernaties/blob/main/images/full-kubernetes-model-architecture.png?raw=true)
+![Communication Flow](https://github.com/marun790/Kubernaties/blob/main/images/k8s_communication_flow.jpeg?raw=true)
 
 ##Components
 ### Master(Control plane):
