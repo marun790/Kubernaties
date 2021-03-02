@@ -74,20 +74,20 @@ step:
 > docker image build . -t arun-emp:latest
 
 ### Installation
-> k8s install with minikube https://www.howtoforge.com/how-to-install-kubernetes-with-minikube-ubuntu-20-04/
-> kubectl get pods -n kube-system
-> sudo cp minikube-linux-amd64 /usr/local/bin/minikube
-> sudo cp minikube-linux-amd64 /usr/local/bin/minikube
-> sudo chmod 755 /usr/local/bin/minikube
-> minikube version
-> sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-> echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
-> sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
-> sudo apt-get update -y
-> sudo apt-get install kubectl kubeadm kubectl -y
-> minikube start
-> kubectl get nodes
-> kubectl get pods -n kube-system
+* k8s install with minikube https://www.howtoforge.com/how-to-install-kubernetes-with-minikube-ubuntu-20-04/
+* kubectl get pods -n kube-system
+* sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+* sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+* sudo chmod 755 /usr/local/bin/minikube
+* minikube version
+* sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+* echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
+* sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
+* sudo apt-get update -y
+* sudo apt-get install kubectl kubeadm kubectl -y
+* minikube start
+* kubectl get nodes
+* kubectl get pods -n kube-system
 
 
 kubectx - https://packages.debian.org/buster/all/kubectx/download
