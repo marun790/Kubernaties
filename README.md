@@ -34,16 +34,45 @@ REF: https://medium.com/analytics-vidhya/the-kubernetes-control-plane-f4bf460c84
 
 Each component in kubernatis is an object.
 ## Objects in kubernaties
+Each object having 2 main factor
+* Spec - descripes the desired state of the object and when to recreate the object
+* Status - Current status of the object
+* we have to pass any abject spec via kubectl, kubectl will convert the yml to json and pass to api service
+
 ### Name space:
-  Namespace is bubble like we can do partitions on the nodes using this and also team level boundary is defigned here.
+  Namespace is like bubble, we can do partitions on the nodes using this and also team level boundary is defigned by name space.
+  Complete Spec: 
+  
 ### pods:
   Smallest unit in the kubernate infra. which having containers that
+* Complete spec : https://github.com/marun790/k8s-guide/blob/master/pod-sample.yaml
+* Basic spec:
+```
+
+```
  
-### DeploymentController (Manages Pods):
+### Deploymet (Manages Pods):
+
+* Comlplete Spec : https://github.com/marun790/k8s-guide/blob/master/deployment-sample.yml
+* Basic Spec:
+```
+
+```
 
 ### Services:
 
+* Complete Spec : https://github.com/marun790/k8s-guide/blob/master/services-sample.yml
+
+* Basic Spec:
+```
+
+```
+
 ### ConfigMaps:
+* Basic Spec:
+```
+
+```
 
 ### ReplicationController (Manages Pods)
 ### StatefulSets
