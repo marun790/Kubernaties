@@ -45,10 +45,10 @@ Each component in kubernatis is an object.
 
 ### ConfigMaps:
 
-ReplicationController (Manages Pods)
-StatefulSets
-DaemonSets
-Volumes
+### ReplicationController (Manages Pods)
+### StatefulSets
+### DaemonSets
+### Volumes
 
 
 
