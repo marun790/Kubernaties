@@ -4,27 +4,6 @@ kubernaties
 ![kubernetes-model-architecture](https://github.com/marun790/Kubernaties/blob/main/images/full-kubernetes-model-architecture.png?raw=true)
 ![Communication Flow](https://github.com/marun790/Kubernaties/blob/main/images/k8s_communication_flow.jpeg?raw=true)
 
-Each component in kubernatis is an object.
-## Objects in kubernaties
-### Name space:
-  Namespace is bubble like we can do partitions on the nodes using this and also team level boundary is defigned here.
-### pods:
-  Smallest unit in the kubernate infra. which having containers that
- 
-### DeploymentController (Manages Pods):
-
-### Services:
-
-### ConfigMaps:
-
-ReplicationController (Manages Pods)
-StatefulSets
-DaemonSets
-Volumes
-
-
-
-
 
 ##Components
 ### Master(Control plane):
@@ -53,8 +32,28 @@ Taint on node , Tolerration on pod (key and value) EX: chosing pod for bigdata a
 REF: https://medium.com/analytics-vidhya/the-kubernetes-control-plane-f4bf460c848f
 
 
+Each component in kubernatis is an object.
+## Objects in kubernaties
+### Name space:
+  Namespace is bubble like we can do partitions on the nodes using this and also team level boundary is defigned here.
+### pods:
+  Smallest unit in the kubernate infra. which having containers that
+ 
+### DeploymentController (Manages Pods):
 
-Commends
+### Services:
+
+### ConfigMaps:
+
+ReplicationController (Manages Pods)
+StatefulSets
+DaemonSets
+Volumes
+
+
+
+
+
 Commends							|Description
 --------------------------------------------------------------|-------------------------------------------------------------------------
 kubectl get namespace						|to get all namespace
