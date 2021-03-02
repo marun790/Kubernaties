@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "arun-emp-pod"
+  namespace: "arun-namespace"
+  labels:
+    app: "emp"
+spec:
+  containers:
+  - image: arun-emp:latest
+    name: arun-emp-container
+    ports:
+    - name: "http"
+      containerPort: 8081
+    imagePullPolicy: Never
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    livenessProbe:
+      httpGet:
+        path: "/employee/all"
+        port: 8081
+      failureThreshold: 3
+      initialDelaySeconds: 20
+      periodSeconds: 15
+      successThreshold: 1
+    readinessProbe:
+      httpGet:
+        path: "/employee/all"
+        port: 8081
+      failureThreshold: 3
+      initialDelaySeconds: 20
+      periodSeconds: 15
+      successThreshold: 1
