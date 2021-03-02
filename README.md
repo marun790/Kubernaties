@@ -70,7 +70,8 @@ step:
 * do port forward
 > kubectl port-forward <POD_NAME> 8080:8081 -n <NAMEPACE_NAME>
 
-
+* do the build using kubernaties docker not with the root docker
+> docker image build . -t arun-emp:latest
 
 ### Installation
 > k8s install with minikube https://www.howtoforge.com/how-to-install-kubernetes-with-minikube-ubuntu-20-04/

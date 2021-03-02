@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "arun-dept-pod"
+  namespace: "arun-namespace"
+  labels:
+    app: "arun-department"
+spec:
+  containers:
+  - image: arun-dept:latest
+    name: arun-dept-container
+    ports:
+    - name: "http"
+      containerPort: 8082
+    imagePullPolicy: Never
+    livenessProbe:
+      httpGet:
+        path: "/dept"
+        port: 8082
+      failureThreshold: 3
+      initialDelaySeconds: 20
+      periodSeconds: 15
+      successThreshold: 1
+    readinessProbe:
+      httpGet:
+        path: "/dept"
+        port: 8082
+      failureThreshold: 3
+      initialDelaySeconds: 20
+      periodSeconds: 15
+      successThreshold: 1
