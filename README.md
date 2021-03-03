@@ -110,7 +110,9 @@ spec:
 * responsible for rools and update(tag- 'rollingUpdate' - specifing minimum number of avilability of the pod based on this destroying and creating of pod happends)
 
 * main thing is selector.matchLabels must be eqal to template.metadata.labels, the object pick the pod 
+* to delete the pod we have to delete the deployment first, as we having 'type: RollingUpdate' deployment will do pod createion continuesly. 
 * Comlplete Spec : https://github.com/marun790/k8s-guide/blob/master/deployment-sample.yml
+
 * Basic Spec:
 ```
 apiVersion: apps/v1
@@ -168,7 +170,7 @@ spec:
 ```
 
 ### Services:
-* same as ribbon in spring cloud
+* same as ribbon(clientside load balancer which forwards reqest to client via round drobin) in spring cloud
 * Specifies the way in which the pod should be communicated. Like through load balancer / through host IP / through  cluster IP
 * we can group the replicas using 'selector.app' whick will match with 'lable.app' in pod. and uses these info in DNS, as becuse each deployment will allocate unique ip for the pod 
 * these specs will leads to way for pod to pod communication
