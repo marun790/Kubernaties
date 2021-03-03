@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  arun-dept-deployment
+  labels:
+    name:  arun-dept-deployment
+spec:
+  progressDeadlineSeconds: 2
+  revisionHistoryLimit: 1
+  rollbackTo:
+    revision: 0
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 1
+  minReadySeconds: 0
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "arun-dept"
+      version: 0.0.01
+  template:
+    metadata:
+      name: "arun-dept-pod"
+      namespace: "arun-namespace"
+      labels:
+        app: "arun-dept"
+        version: 0.0.01
+    spec:
+      containers:
+        - image: arun-dept:latest
+          name: arun-dept-container
+          ports:
+            - name: "http"
+              containerPort: 8082
+          imagePullPolicy: Never
+          livenessProbe:
+            httpGet:
+              path: "/dept"
+              port: 8082
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: "/dept"
+              port: 8082
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1

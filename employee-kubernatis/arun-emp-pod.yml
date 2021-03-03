@@ -4,7 +4,8 @@ metadata:
   name: "arun-emp-pod"
   namespace: "arun-namespace"
   labels:
-    app: "emp"
+    app: "arun-emp"
+    version: 0.0.01
 spec:
   containers:
   - image: arun-emp:latest

@@ -108,15 +108,67 @@ spec:
 * which is mainy focusing on replicas of the pod
 * Deployment must have a spec 'selector' which is a pointer for the pod, if the selector for the pod missmatches the pod will keep on creates as the deployment unable to get the desired state of the pod
 * responsible for rools and update(tag- 'rollingUpdate' - specifing minimum number of avilability of the pod based on this destroying and creating of pod happends)
-* If we using deployment for the pod, It will create and destroy the pod dynamically.
 
+* main thing is selector.matchLabels must be eqal to template.metadata.labels, the object pick the pod 
 * Comlplete Spec : https://github.com/marun790/k8s-guide/blob/master/deployment-sample.yml
 * Basic Spec:
 ```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  arun-emp-deployment
+  labels:
+    name:  arun-emp-deployment
+spec:
+  progressDeadlineSeconds: 2
+  revisionHistoryLimit: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 1
+  minReadySeconds: 0
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "arun-emp"
+      version: 0.0.01
+  template:
+    metadata:
+      name: "arun-emp-pod"
+      namespace: "arun-namespace"
+      labels:
+        app: "arun-emp"
+        version: 0.0.01
+    spec:
+      containers:
+        - image: arun-emp:latest
+          name: arun-emp-container
+          ports:
+            - name: "http"
+              containerPort: 8081
+          imagePullPolicy: Never
+          livenessProbe:
+            httpGet:
+              path: "/employee/all"
+              port: 8081
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: "/employee/all"
+              port: 8081
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
 
 ```
 
 ### Services:
+* same as ribbon in spring cloud
 * Specifies the way in which the pod should be communicated. Like through load balancer / through host IP / through  cluster IP
 * we can group the replicas using 'selector.app' whick will match with 'lable.app' in pod. and uses these info in DNS, as becuse each deployment will allocate unique ip for the pod 
 * these specs will leads to way for pod to pod communication
