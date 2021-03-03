@@ -172,11 +172,34 @@ spec:
 * Specifies the way in which the pod should be communicated. Like through load balancer / through host IP / through  cluster IP
 * we can group the replicas using 'selector.app' whick will match with 'lable.app' in pod. and uses these info in DNS, as becuse each deployment will allocate unique ip for the pod 
 * these specs will leads to way for pod to pod communication
-
 * Complete Spec : https://github.com/marun790/k8s-guide/blob/master/services-sample.yml
 
 * Basic Spec:
 ```
+apiVersion: v1
+kind: Service
+metadata:
+  name: "arun-emp-service"
+  labels:
+    app: "arun-emp-service"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8081
+  selector:
+    app: "arun-emp"
+```
+
+* after spinning the service portforward have to be done as the service is not exposed in host.
+> kubectl port-forward service/arun-emp-service 8080:80 //for service port forward we have to mention /service as prefix
+
+* Pod to pod communication can be acchived by service name in URI.
+```
+
+department-uri=http://arun-dept-service:80 // 'arun-dept-service:80' -> service details which exposed for department project
 
 ```
 
@@ -205,8 +228,8 @@ kubectl apply -f <OBJECT_SPEC>				| Will apply the yml spec for the given object
 kubectl apply -f arun-namspace.yaml				| create namespace with yaml file
 kubectl get namespace arun-namespace -o yaml			| open namespace spec in yaml format
 kubectl get pod 						| to get pod
-kubectl delete pod muthu-emp-pod				| to delete pod
-
+kubectl delete pod arun-emp-pod				| to delete pod
+kubectl 
 
 
 
@@ -224,8 +247,10 @@ step:
 * create pod
 > kubectl apply -f arun-emp-pod.yml -> will create the pod
 
-* do port forward
+* Port forward for pod
 > kubectl port-forward <POD_NAME> 8080:8081 -n <NAMEPACE_NAME>
+*Port forward for service
+> kubectl port-forward service/arun-emp-service 8080:80
 
 * do the build using kubernaties docker not with the root docker
 > docker image build . -t arun-emp:latest

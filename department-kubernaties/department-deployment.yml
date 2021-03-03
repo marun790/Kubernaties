@@ -7,8 +7,6 @@ metadata:
 spec:
   progressDeadlineSeconds: 2
   revisionHistoryLimit: 1
-  rollbackTo:
-    revision: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:

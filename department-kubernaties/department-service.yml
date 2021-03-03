@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "arun-dept-service"
+  labels:
+    app: "arun-dept-service"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 82
+      targetPort: 8082
+  selector:
+    app: "arun-dept"
+    version: 0.0.01
