@@ -111,6 +111,7 @@ spec:
 
 * main thing is selector.matchLabels must be eqal to template.metadata.labels, the object pick the pod 
 * to delete the pod we have to delete the deployment first, as we having 'type: RollingUpdate' deployment will do pod createion continuesly. 
+* With  deployment image replaecement will make issue, rebuilding image with same version will not replace the deployment image version / registory.
 * Comlplete Spec : https://github.com/marun790/k8s-guide/blob/master/deployment-sample.yml
 
 * Basic Spec:
@@ -206,12 +207,84 @@ department-uri=http://arun-dept-service:80 // 'arun-dept-service:80' -> service 
 ```
 
 ### ConfigMaps:
+Used to create the configuration which used to share accross the pods, changing of config value won't reflect on the pod just like that, for that we hae to use ?
 * Basic Spec:
 ```
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  arun-emp-deployment
+  labels:
+    name:  arun-emp-deployment
+spec:
+  progressDeadlineSeconds: 2
+  revisionHistoryLimit: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 1
+  minReadySeconds: 0
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "arun-emp"
+      version: 0.0.01
+  template:
+    metadata:
+      name: "arun-emp-pod"
+      namespace: "arun-namespace"
+      labels:
+        app: "arun-emp"
+        version: 0.0.01
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: employee-configmap
+      containers:
+        - image: arun-emp:latest
+          name: arun-emp-container
+          ports:
+            - name: "http"
+              containerPort: 8081
+          imagePullPolicy: Never
+          env:
+            - name: address
+              valueFrom:
+                configMapKeyRef:
+                  name: employee-configmap
+                  key: address
+            - name: spring.config.location
+              value: /config/application.properties //Using mounted application.properties from mounted space
+          volumeMounts:
+            - name: config-volume    
+              mountPath: /config		//Mounting config map in a directory in the pod host
+          livenessProbe:
+            httpGet:
+              path: "/employee/all"
+              port: 8081
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: "/employee/all"
+              port: 8081
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
 ```
 
-### ReplicationController (Manages Pods)
+### Limit range
+
+### Resource quota
+
+### Ingress
+
+### ReplicationController
 ### StatefulSets
 ### DaemonSets
 ### Volumes
@@ -231,8 +304,6 @@ kubectl apply -f arun-namspace.yaml				| create namespace with yaml file
 kubectl get namespace arun-namespace -o yaml			| open namespace spec in yaml format
 kubectl get pod 						| to get pod
 kubectl delete pod arun-emp-pod				| to delete pod
-kubectl 
-
 
 
 step:

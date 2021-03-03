@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: employee-configmap
+data:
+  address: "madipakkam, Chennai - 600091"
+  application.properties: |
+    server.port=8081
+    feign.name=department-service-proxy
+    application-name=employee-fromconfigmap
+    department-uri=http://arun-dept-service:80
