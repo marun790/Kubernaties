@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: "replicaset-sample"
+  namespace: "my-ns"
+  labels:
+    release: "stable"
+    elnv: "dev"
+    tier: "backend"
+    partition: "customerA"
+    track: "daily"
+  annotations:
+      image: "gold-image"
+spec:
+  minReadySeconds: 0 # Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+  replicas: 3
+  selector:
+    matchLabels:
+      env: "dev"
+    matchExpressions:
+    - key: "tier"
+      operator: in
+      values: ["backend"] 
+    - { key: release, operator: NotIn, values: [stable] }
+  template:
+    metadata:
+      name: "my-pod"
+      labels:
+        release: "stable"
+        elnv: "dev"
+        tier: "backend"
+        partition: "customerA"
+        track: "daily"
+    spec:
+      # pod spec
+      # .spec.template.spec.restartPolicy the only allowed value is Always
+      # .spec.template.metadata.labels must match spec.selector, or it will be rejected by the API.
+
+# ReplicaSet and ReplicationController both are same, except ReplicationController does not support set-based selector requirements      

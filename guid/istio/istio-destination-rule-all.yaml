@@ -1,0 +1,96 @@
+
+# ConnectionPool Settings
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata: 
+  name: connectionpool-test
+spec:
+  host: reviews.default.svc.cluster.local
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 30ms
+        tcpKeepalive:
+          time: 7200s
+          interval: 75s
+      http:
+        http1MaxPendingRequests: 1024
+        http2MaxRequests: 1024
+        maxRequestsPerConnection: 5
+        maxRetries: 3
+---
+# LoadBalncer Settings
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: loadbalance-test
+spec:
+  host: reviews.default.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+      consistentHash:
+        httpCookie:
+          name: user
+          ttl: 0s
+        httpHeaderName: riga
+        useSourceIp: false
+---
+# circuit breaking
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: loadbalance-test
+spec:
+  host: reviews.default.svc.cluster.local
+  trafficPolicy:
+    conectionPool:
+      tcp:
+        maxConnections: 100
+      http:
+        http2MaxRequests: 1000
+        maxRequestPerConnection: 10
+    outlierDetection:
+      consecutiveErrors: 7
+      interval: 5m
+      baseEjectTime: 15m
+      maxEjectionPercent: 60
+---
+# TLS setting
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: loadbalance-test
+spec:
+  host: reviews.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: MUTUAL # ISTIO_MUTUAL or SIMPLE or DISABLE
+      clientCertificate: etc/certs/myclientcert.pem
+      privateKey: etc/certs/key.pem
+      caCrtificate: etc/certs/rootcert.pem
+---
+# port level setting
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: loadbalance-test
+spec:
+  host: reviews.default.svc.cluster.local
+  trafficPolicy:
+    portLevelSettings:
+    - ports:
+        number: 80
+        loadBalancer:
+          simple: RANDOM
+        connectionPool:
+          http:
+            maxRequestPerConnection: 10
+          tcp:
+            maxConnections: 100
+            

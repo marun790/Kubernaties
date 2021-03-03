@@ -1,0 +1,195 @@
+# restricts cross origin requests to those originating from example.com domain using HTTP POST/GET, and sets the Access-Control-Allow-Credentials header to false. In addition, it only exposes X-Foo-bar header and sets an expiry period of 1 day
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cors-sample
+spec: 
+  hosts:
+  - reviews.prod.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: reviews.prod.svc.cluster.local
+        subset: v1
+    corsPolicy:
+      allowOrgin:
+      - example.com
+      allowMethods:
+      - POST
+      - GET
+    allowCredentials: false
+    allowHeaders:
+    - X-Foo-bar
+    maxAge: "24h"
+    exposeHeaders:
+    - x-sella-token
+---
+#  fault
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: fault-testing
+spec:
+  hosts:
+  - reviews.prod.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: reviews.prod.svc.cluster.local
+        subset: v1 
+    fault:
+      abort:
+        percentage: 
+          value: 0.001
+        httpStatus: 400
+      delay:
+        percentage:
+          value: 0.001
+        fixedDelay: 5s
+---
+# match condition
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: match-testing
+spec:
+  hosts:
+  - reviews.prod.svc.cluster.local
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: jason
+        user-id:
+          prefix: 123
+      uri:
+        prefix: "/ratings/v2/"  
+      schema:
+        regex: "*/api/schema/sispe/*"
+      method:
+        prefix: "/user"
+      authority:
+        exact: "token"
+      sourceLabels:
+        app: reviews
+        version: v1
+      gateway:
+      - my-gateway
+    route:
+    - destination:
+        host: reviews.prod.svc.cluster.local
+        subset: v1
+---
+# http redirect
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: redirect-testing
+spec:
+  hosts:
+  - reviews.prod.svc.cluster.local
+  http:
+  - match:
+    - ur:
+        prefix: "/getReviews/v2"
+    redirect: 
+      uri: "/reviews/v2"
+      authority: newreview.default.svc.cluster.local
+    route:
+    - destination:
+        host: reviews.prod.svc.cluster.local
+        subset: v2
+---
+# http retries
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: retries-testing
+spec:
+  hosts:
+  - reviews.prod.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: reviews.prod.svc.cluster.local
+        subset: v1
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx # 5xx or gateway-error(502, 503, 504) or connect-failure or retriable-4xx(409) or refused-stream or retriable-status-codes
+---
+# http rewrite
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata: 
+  name: rewrite-test
+spec:
+  hosts:
+  - review.default.svc.cluster.local
+  http:
+  - match:
+    - uri:
+        prefix: "/booking"
+    rewrite:
+      uri: "/booking/v1"
+    route:
+    - destination:
+        host: review.default.svc.cluster.local
+        subset: v1
+---
+# timeout
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata: 
+  name: rewrite-test
+spec:
+  hosts:
+  - review.default.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: review.default.svc.cluster.local
+    timeout: 10s
+---
+# mirror
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata: 
+  name: rewrite-test
+spec:
+  hosts:
+  - review.default.svc.cluster.local
+---
+# destination
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata: 
+  name: rewrite-test
+spec:
+  hosts:
+  - reviews.com
+  http:
+  - route:
+    - destination:
+        host: dev.reviews.com
+      weight: 25
+    - destination:
+        host: reviews.com
+      weight: 75
+      headers:
+        request:
+          set:
+            app: my-app
+          add: 
+            x-trace-id: 11236
+          remove:
+          - user-id
+          - user-name
+        response:
+          set:
+            app: my-app
+          add: 
+            x-trace-id: 11236
+          remove:
+          - user-id
+          - user-name

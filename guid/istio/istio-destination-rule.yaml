@@ -1,0 +1,37 @@
+# A DestinationRule configures the set of policies to be applied to a request after VirtualService routing has occurred. intended to be authored by service owners, describing the circuit breakers, load balancer settings, TLS settings
+#     ConnectionPoolSetting
+#     LoadBalancer
+#     
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: reviews
+spec:
+  host: reviews
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+    portLevelSettings:
+    - port:
+        number: 80
+      loadBalancer:
+        simple: LEAST_CONN    
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+    trafficPolicy:
+      connectionPool:
+        tcp:
+          maxConnection: 100
+  - name: v2
+    labels:
+      version: v2
+    trafficPolicy:
+      loadBalancer:
+        simple: ROUND_ROBIN
+  - name: v3
+    labels:
+      version: v3
+                
+    

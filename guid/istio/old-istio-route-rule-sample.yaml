@@ -1,0 +1,49 @@
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: recommendation-route
+spec:
+  destination:
+    namespace: my-ns
+    name: my-service-name
+  precedence: 1
+  match:       # Routing Based on Headers
+    request:
+      header:
+        user-agent:
+          regex: ".*Chrome.*"
+  route:       # canary deployment trafic routing
+    - labels:
+        version : v1
+      weight: 90
+    - labels:
+        version : v2
+      weight: 10
+    - labels:
+        version : v3
+      weight: 0
+  mirror:     # Dark Launch 
+    namespace: my-ns
+    name: my-service-name
+    labels:
+      version: v3
+  httpReqTimeout:
+    simpleTimeout:
+      timeout: 2s    
+  httpReqRetries:
+    simpleRetry:
+      perTryTimeout: 2s
+      attempts: 3
+---
+
+apiVersion: config.istio.io/v1alpha2
+kind: EgressRule
+metadata:
+  name: my-egress-rule
+spec:
+  destination:
+    service: httpbin.org
+  ports:
+    - port: 80
+      protocol: http
+    

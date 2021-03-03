@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: "logstash"
+  lable:
+    app: elk-log
+spec:
+  minReadySeconds: 0 # The minimum number of seconds for which a newly created DaemonSet pod should be ready
+  revisionHistoryLimit: 3 # The number of old history to retain to allow rollback.
+  selector:
+    matchLabels:
+      app: elk-log  
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 3
+  template:
+    # pod template spec    
+    # A Pod Template in a DaemonSet must have a RestartPolicy equal to Always
+    
+
+

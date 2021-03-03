@@ -1,0 +1,54 @@
+apiVersion: config.istio.io/v1alpha2
+kind: DestinationPolicy
+metadata:
+  name: "load-balancing"
+  namespace: my-ns
+spec: 
+  source:
+    name: service1
+  destination:
+    name: service2
+  loadBalancing: 
+    name: RANDOM # allowed values are ROUND_ROBIN or RANDOM or LEAST_CONN
+---
+
+apiVersion: config.istio.io/v1alpha2
+kind: DestinationPolicy
+metadata:
+  name: circuit-breaking
+spec:
+  destination:
+    name: service1
+    namespace: my-ns
+    lable:
+      version: v2
+  circuitBreaker:
+    simpleCb:
+      maxConnection: 1
+      httpMaxPendingRequests: 1
+      httpMaxRequestPerConnection: 1           
+      httpConsecutiveErrors: 1
+      sleepWindow: 2m
+      httpDetectionInterval: 1s
+      httpMaxEjectionPercent: 100
+---
+
+apiVersion: config.istio.io/v1alpha2
+kind: DestinationPolicy
+metadata:
+  name: outlier-detection
+  namespace: my-ns
+  lable:
+    version: v2
+spec:
+  destination:
+    name: service1
+    namespace: my-ns
+  loadBalancing:
+    name: RANDOM
+  circuitBreaker:
+    simpeCb:
+      httpConsecutiveErrors: 1      
+      sleepWindow: 15s      
+      httpDetectionInterval: 5s      
+      httpMaxEjectionPercent: 100

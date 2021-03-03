@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name:  name
+  namespace: default
+  labels:
+    app: nginx
+spec:
+  podManagementPolicy: OrderedReady #  Controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The alternative policy is `Parallel` which will create pods in parallel 
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: nginx
+  serviceName: "nginx-service" # serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set.
+  updateStrategy:
+    type: OnDelete # Possible values are OnDelete or RollingUpdate 
+    rollingUpdate:
+      partition: 0 # If it is greater than its .spec.replicas, updates to its .spec.template will not be propagated to its Pods.
+  volumeClaimTemplates:
+  - metadata:
+      name: www 
+    spec:
+      volumeName: "nginx-vol"
+      accessModes: [ "ReadWriteOnce" ]     
+      storageClassName: "my-storage-class"
+      resources:
+        limits:
+          storage: 1Gi
+        requests:
+          storage: 1Gi
+  template:
+    # pod spec template      

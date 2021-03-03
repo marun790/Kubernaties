@@ -1,0 +1,14 @@
+kubectl create -f [yaml file name]
+kubectl get deployments
+kubectl rollout status deployment [deployment name]
+kubectl edit deployment [deployment name]
+kubectl describe deployments
+kubectl set image deployment [deployment name] nginx=nginx:1.91 --record=true
+kubectl rollout history deployment [deployment name]
+kubectl rollout undo deployment [deployment name]
+kubectl scale deployment [deployment name] --replicas=10
+kubectl autoscale deployment [deployment name] --min=10 --max=15 --cpu-percent=80
+kubectl rollout pause deployment [deployment name]
+kubectl set resources deployment [deployment name] -c=nginx --limits=cpu=200m,memory=512Mi
+kubectl rollout resume deployment [deployment name]
+kubectl rollout status
