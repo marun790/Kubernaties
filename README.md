@@ -278,11 +278,55 @@ spec:
             successThreshold: 1
 ```
 
+### Scalling:
+Scalling is a mechanism which auto increase resouces/applucations based on the resource availability
+* Vertical scalling:
+Will increase the phiscal hardware, like node and memory interms of traffic. currently kubernaties not supporting this feature.
+* Horzondal auto scalling
+will increase the application deployment count so can we will have more resources to handle the request, in kubernaties we having Horzondal pod auto scalling
+
+### HPA - Horizondal pod auto scalling
+depends on the CPU Load the new deployment will get spinned which will increase the replicas count based on the specification that we gave. vices versa if the CPU load decreases the deployment gets reverted.
+
+Sepcification:
+
+```
+
+```
+
+
 ### Limit range
+will specify the resource limit in namespace level, the pod can overwride this configuration. if the resorce configuraion is not specified in the pod defualtly the pod will tack the resource configuration which specified in limit range.
+
+the resource allocation will priorotised like this.
+
+KUBERNATIES_CONTROLLER -> SPEC_IN_POD > SPEC_IN_LIMIT_RANGE > FULL_RESOURCE_IN_NAME_SPACE
+
+Sepcification:
+
+```
+
+```
 
 ### Resource quota
+To give limit for the namespace, by this we can avoid a pod taking all avilable resources in host.
+
+Sepcification:
+
+```
+
+```
 
 ### Ingress
+Exposing services to outside the world, like API gteway
+* the communication will happend like user request -> Ingress -> Service -> Pod
+
+* ingress is a common term in networking
+* Ingress - Incoming Load
+* Egress - Outgoing load 
+
+
+
 
 ### ReplicationController
 ### StatefulSets
