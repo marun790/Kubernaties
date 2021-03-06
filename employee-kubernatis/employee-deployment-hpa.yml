@@ -38,7 +38,7 @@ spec:
               path: "/employee/all"
               port: 8081
             failureThreshold: 3
-            initialDelaySeconds: 20
+            initialDelaySeconds: 40
             periodSeconds: 15
             successThreshold: 1
           readinessProbe:
@@ -51,8 +51,8 @@ spec:
             successThreshold: 1
           resources:
             limits:
-              cpu: 500m
+              cpu: 320m
               memory: 512Mi
             requests:
-              cpu: 500m
+              cpu: 320m
               memory: 512Mi

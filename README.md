@@ -348,7 +348,7 @@ kubectl apply -f arun-namspace.yaml				| create namespace with yaml file
 kubectl get namespace arun-namespace -o yaml			| open namespace spec in yaml format
 kubectl get pod 						| to get pod
 kubectl delete pod arun-emp-pod				| to delete pod
-
+kubectl get events						| get event in namespace
 
 step:
 
