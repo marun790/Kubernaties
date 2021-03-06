@@ -325,13 +325,47 @@ Exposing services to outside the world, like API gteway
 * Ingress - Incoming Load
 * Egress - Outgoing load 
 
-
-
-
 ### ReplicationController
 ### StatefulSets
 ### DaemonSets
+Can specify like each node should contain a single pod.
+Use case: for logging purpose 'fluid' can be added in separate pod and can be attached in every node.
 ### Volumes
+### Fluid:
+fluid is a side car container. which is entrypoint for the pod. can be used to collect the standerd out of the node and pass to the message brocker to persist the log.
+### persistance volume:
+used to persist the logs when publishing event in message brocker.
+
+### Ressiliancy 4j:
+used as circuit breacker same as hystricks- retry logic for all transaction, it also will act as sidecar container.
+- default response
+- circuit breaking
+
+## Microservice paatternss achived via kubernaties
+### Distributed logging:
+spring cloud slauth used for logging.
+logbck used to supply json formated value
+
+Fluid
+---------------------------------       -------         ------
+|Aggricator   ------> forwader  |------>|Kafka|------->|Splunk|
+(message collector)             |       -------         -------
+|-------------------------------
+
+* splunk | kibana -> we can use slunk or kibana to view as log dashboard
+
+### Distributed transaction:
+SAGA pattern 
+* Event based -> transaction rollback done by message brocker
+* Carriography -> using rollback aggrigation technique we can achive. event based is better to use
+
+### Pagerduty:
+ For allert system
+### Promothies === Dynatrace
+For monitoring
+### API managment service - azur service which manages api request response
+
+
 
 
 
