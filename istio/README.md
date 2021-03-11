@@ -22,7 +22,7 @@ Features:
 * Observability - Log collection Matrix
 
 Architecture:
-![kubernetes-model-architecture](https://github.com/marun790/Kubernaties/blob/main/images/full-kubernetes-model-architecture.png?raw=true)
+![kubernetes-model-architecture](https://github.com/marun790/Kubernaties/blob/main/istio/image/arch.svg?raw=true)
 
 * Istio having a same architecture as kubernaties, control plane and which will attached with every container as side car and cntrolls all ingresstraffic and do the logging , matrix collection everything
 
