@@ -1,6 +1,7 @@
 package arun.demo.docker.service;
 
 import arun.demo.docker.model.Department;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service

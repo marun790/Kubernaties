@@ -17,6 +17,7 @@ which is responsble for chosing the node for the pod
 It continuously monitors the state of the cluster via the kube API server.
 IT will keep check on the giivel criterias like 
 * Kube cloud manager 
+* After insalling kubernaties all the component will be in namespace called "kube-system"
 
 ### Worker Nodes
 * Kublet
@@ -344,6 +345,25 @@ used as circuit breacker same as hystricks- retry logic for all transaction, it 
 ## Microservice paatternss achived via kubernaties
 ### Distributed logging:
 spring cloud slauth used for logging.
+Implementation:
+* dependencies
+```
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
+		
+```
+
+* application.properties
+```
+logging.level.com.arun.demo = debug
+spring.application.name="arun-emp"
+```
+By adding above dependecy we can get traceId(is same for through out the request), SpanId(Differ for each service) in log
+Log format will be [<APPLICAION-NAME>, <TRACE_ID>, <SPAN_ID>].........
+
+
 logbck used to supply json formated value
 
 Fluid
@@ -365,6 +385,9 @@ SAGA pattern
 For monitoring
 ### API managment service - azur service which manages api request response
 
+
+### Kafka:
+> sudo apt install docker-compose
 
 
 

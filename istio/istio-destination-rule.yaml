@@ -1,0 +1,21 @@
+# A DestinationRule configures the set of policies to be applied to a request after VirtualService routing has occurred. intended to be authored by service owners, describing the circuit breakers, load balancer settings, TLS settings
+#     ConnectionPoolSetting
+#     LoadBalancer
+#
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: istio-ds
+spec:
+  host: "arun-emp-service.default.svc.cluster.local"
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+  subsets:
+    - name: v1
+      labels:
+        app: "arun-emp"
+        version: 0.0.01
+      trafficPolicy:
+        loadBalancer:
+          simple: ROUND_ROBIN
