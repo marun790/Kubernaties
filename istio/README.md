@@ -49,4 +49,17 @@ Api service ->  Kubelet -> service -> virtual service -> pod
 
 #### Destination rule:
 * Chosing which pod to execute
-* 
+* kubernaties defultly proceed with roundrobin, we can specifu more options
+* Using host and pod details destination rule can be achived
+* DB level oprations can be achived by resiliacy 4j(cross cutting cnsern)
+* once we get request from virtual service destination rule will execute, TCP connection configuration
+* Usecase : If TCP connection takes too much time we can give response to cirtual service amd VS will decide what to do next.
+
+
+#### Monitoring
+* Promothies: Time seriese database
+* Grefana - Reporing system, will call the jum or other metadata info in the particular time limit
+* "micro-meter" provides the framework for metadata info gathering.
+* Promothese operator - providing additional operation time like allert system(ISTIO not having inbuil allert system), chosing pod to monitor 
+* Service monitor: Will call our application and expose to promothies and grefana / Kibana will use the data to publish the details in dashboard
+
