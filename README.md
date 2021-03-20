@@ -15,7 +15,7 @@ consist of metatada(with key-value pair) about the cluster.
 which is responsble for chosing the node for the pod
 * Kube controller manager 
 It continuously monitors the state of the cluster via the kube API server.
-IT will keep check on the giivel criterias like 
+IT will keep check on the given criterias like 
 * Kube cloud manager 
 * After insalling kubernaties all the component will be in namespace called "kube-system"
 
