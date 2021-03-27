@@ -5,7 +5,7 @@ kubernaties
 ![Communication Flow](https://github.com/marun790/Kubernaties/blob/main/images/k8s_communication_flow.jpeg?raw=true)
 
 
-##Components
+## Components
 ### Master(Control plane):
 * Kube-Api server
 which handles all communication, external as well as intrnal
