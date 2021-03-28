@@ -24,7 +24,7 @@ IT will keep check on the given criterias like
 Agent for kubernate to manage node.
 The kubelet uses the container runtime to start the pod, monitors its lifecycle, checks for the readiness, etc
 * kube proxy
-Maintain communication amoung the pods using the network infirmation it have.
+Maintain communication rools amoung the pods using the network infirmation it have.
 
 Kuberantes package manager helm
 Taint on node , Tolerration on pod (key and value) EX: chosing pod for bigdata appllication
