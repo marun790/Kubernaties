@@ -16,7 +16,6 @@ import java.util.List;
  * Created by GBS03785 on 2/27/2021.
  */
 @RestController
-@RequestMapping("employee")
 @Slf4j
 public class EmployeeController {
 

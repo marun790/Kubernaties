@@ -12,7 +12,7 @@ which handles all communication, external as well as intrnal
 * etcd
 consist of metatada(with key-value pair) about the cluster.
 * Kube schedular
-which is responsble for chosing the node for the pod
+which is responsble for chosing the node for the pod - like lesser load node will be chosen for new pod to spin
 * Kube controller manager 
 It continuously monitors the state of the cluster via the kube API server.
 IT will keep check on the given criterias like 
@@ -406,6 +406,9 @@ kubectl get namespace arun-namespace -o yaml			| open namespace spec in yaml for
 kubectl get pod 						| to get pod
 kubectl delete pod arun-emp-pod				| to delete pod
 kubectl get events						| get event in namespace
+kubectl logs -f arun-emp-pod						| open logs in intraction mode
+kubectl create deployment mongo-depl --image=mongo  | create mongo db deployment directly from image registory
+kubectl edit deployment mogo-depl                   |  to edit the deployment
 
 step:
 

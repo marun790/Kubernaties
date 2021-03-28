@@ -27,7 +27,7 @@ spec:
         version: 0.0.01
     spec:
       containers:
-        - image: arun-emp:latest
+        - image: arun-emp:0.0.01
           name: arun-emp-container
           ports:
             - name: "http"
@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: Never
           livenessProbe:
             httpGet:
-              path: "/employee/all"
+              path: "/employee/actuator/health"
               port: 8081
             failureThreshold: 3
             initialDelaySeconds: 20
@@ -43,7 +43,7 @@ spec:
             successThreshold: 1
           readinessProbe:
             httpGet:
-              path: "/employee/all"
+              path: "/employee/actuator/health"
               port: 8081
             failureThreshold: 3
             initialDelaySeconds: 20
