@@ -31,7 +31,7 @@ Architecture:
 * istioD- Entry pont for istio
 * pilot - Convert istiod request to Envoy proxy
 * citadel - Security related things
-* Gally Configurations for pilot istod
+* Gally Configurations for pilot istiod
 
 * After insalling Istiod all the component will be in namespace called "istio-system"
 
@@ -42,14 +42,14 @@ Can be achived by "virtual-service" and "destination-rule"
 * Destination rule - Executing the configuration
 
 #### Virtual service
-* virual service will works like a proxy for the pods, which will closely work with "service" so the request to reacch the pod will go like below
+* virual service will works like a proxy for the pods, which will closely work with "service" so the request to reach the pod will go like below
 Api service ->  Kubelet -> service -> virtual service -> pod
-* we can have configurations for url routing and and other routing configuration
-* and the URL resolve firs will execute fist
+* we can have configurations for url routing and other routing configuration
+* and the URL resolves firs will execute fist
 
 #### Destination rule:
 * Chosing which pod to execute
-* kubernaties defultly proceed with roundrobin, we can specifu more options
+* kubernaties defultly proceed with roundrobin, we can specify more options
 * Using host and pod details destination rule can be achived
 * DB level oprations can be achived by resiliacy 4j(cross cutting cnsern)
 * once we get request from virtual service destination rule will execute, TCP connection configuration
