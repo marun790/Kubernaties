@@ -25,7 +25,7 @@ Agent for kubernate to manage node.
 The kubelet uses the container runtime to start the pod, monitors its lifecycle, checks for the readiness, etc
 * kube proxy
 Maintain communication rools amoung the pods using the network infirmation it have.
-EX: Consider we havinf 2 replicas, which contains 2 pods in each pod1, pod2. if containcerA.pod1  can communicate containcerA.pod2 diectly instead caomunicating containcerB.pod2. kube proxy manage this efficiant way of network communication.
+- EX: Consider we havinf 2 replicas, which contains 2 pods in each pod1, pod2. if containcerA.pod1  can communicate containcerA.pod2 diectly instead caomunicating containcerB.pod2. kube proxy manage this efficiant way of network communication.
 
 Kuberantes package manager helm
 Taint on node , Tolerration on pod (key and value) EX: chosing pod for bigdata appllication
