@@ -13,8 +13,8 @@
 once the above done the replicaset will automatically gets updated 
 
 # creating deployment with below configuration
-![kubernetes-model-architecture](https://github.com/marun790/Kubernaties/tutorial-workout/blob/main/images/fmogodb-mongoexpress-comoponents_overview.jpeg?raw=true)
-![Communication Flow](https://github.com/marun790/Kubernaties/tutorial-workout/blob/main/images/mogodb-mongoexpress-comoponents_flow.jpeg?raw=true)
+![kubernetes-model-architecture](https://github.com/marun790/Kubernaties/blob/main/tutorial-workout/images/fmogodb-mongoexpress-comoponents_overview.jpeg?raw=true)
+![Communication Flow](https://github.com/marun790/Kubernaties/blob/main/tutorial-workout/images/mogodb-mongoexpress-comoponents_flow.jpeg?raw=true)
 
 For the aove flow we will be needing kubernaties objects below
 * mongo-configmap.yaml -> Config map will have the mogo-db connection URL
