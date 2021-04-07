@@ -410,6 +410,7 @@ kubectl get events						| get event in namespace
 kubectl logs -f arun-emp-pod						| open logs in intraction mode
 kubectl create deployment mongo-depl --image=mongo  | create mongo db deployment directly from image registory
 kubectl edit deployment mogo-depl                   |  to edit the deployment
+kubectl get deployment arun-emp-deployment -o yaml > emp-depl.yaml | Create a file 'emp-depl.yaml' in pwd from config in etcd
 
 step:
 
