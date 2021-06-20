@@ -153,12 +153,20 @@ spec:
 The excution order is key here, the order should be like below
 
 > kubectl apply -f mongo-secrets.yaml
+
+
 > kubectl apply -f mongo-configmap.yaml
+
+
 > kubectl apply -f mongo-db.yaml
+
+
 > kubectl apply -f mongo-express.yaml
 
 if you wxecute 
 > kubectl get pods
+
+
 the EXTERNAL-IP for the mongo-express-service will be <pending> so we have to assign a public ip for the service to access the mongo-express from browser
 
 > minikube service mongo-express-service -n arun-namespace
