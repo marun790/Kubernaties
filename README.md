@@ -452,5 +452,10 @@ step:
 * kubectl get pods -n kube-system
 
 
-kubectx - https://packages.debian.org/buster/all/kubectx/download
-kubens
+* kubectx 
+> ubuntu - https://github.com/ahmetb/kubectx
+> debian - https://packages.debian.org/buster/all/kubectx/download
+
+
+
+
